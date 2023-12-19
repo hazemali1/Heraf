@@ -200,61 +200,62 @@ echo $emp2['about'] . "</p>";}
     <!-- end section 2 -->
     
     <!-- start comments -->
-	<?php  for ($i=0; $i < sizeof($rev); $i++){
+	<?php  
+	echo "<div class=\"comments\"> <div class=\"container contComnt\">";
+	for ($i=0; $i < sizeof($rev); $i++){
 		$client_id = $rev[$i]['client_id'];
 		$run = "SELECT * FROM clients WHERE id = $client_id";
 		$clie = $pdo->prepare($run);
 		$clie->execute();
 		$clie = $clie->fetch(PDO::FETCH_ASSOC);
 		// echo $clie['first_name'];
-    echo "<div class=\"comments\">";
+    
 	if ($i == 0){echo "<h2>Ratings : </h2>";}
-      echo "<div class=\"container contComnt\">
+      echo "
         <!-- ======== -->
         <div class=\"card\">
-          <div class=\"person\">
-          <img src=\"images/" . $clie['photo'] . "\" alt=\"\">
-          <div class=\"name\">" . $clie['first_name'] . " " . $clie['last_name'] . "</div>
-        </div>
-        <div class=\"cmnt\">
-		<i class=\"fa-solid fa-star one\"></i>
-            <i class=\"fa-solid fa-star two\"></i>
-            <i class=\"fa-solid fa-star three\"></i>
-            <i class=\"fa-solid fa-star four\"></i>
-            <i class=\"fa-solid fa-star five\"></i>
-          <p class=\"mycmnt\">" . $rev[$i]['review'] . "</p>
-        </div>
+			<div class=\"person\">
+				<img src=\"images/" . $clie['photo'] . "\" alt=\"\">
+				<div class=\"name\">" . $clie['first_name'] . " " . $clie['last_name'] . "</div>
+			</div>
+			<div class=\"cmnt\">
+				<div class=\"rating\">
+					<i class=\"fa-solid fa-star star one\"></i>
+					<i class=\"fa-solid fa-star star two\"></i>
+					<i class=\"fa-solid fa-star star three\"></i>
+					<i class=\"fa-solid fa-star star four\"></i>
+					<i class=\"fa-solid fa-star star five\"></i>
+				</div>
+				<p class=\"mycmnt\">" . $rev[$i]['review'] . "</p>
+			</div>
       </div>
         <!-- ==== -->
-    </div>
-  </div>";}?>
+    ";}?>
 	<?php if (isset($emp2['elherfa']) and isset($emp1) and !isset($emp1['elherfa'])) {
-    echo "<div class=\"comments\">
-      <div class=\"container contComnt\">
+    echo "
         
          
         <!-- ======== -->
         <div class=\"card\">
-          <div class=\"person\">
-          <img src=\"images/" . $emp1['photo'] . "\" alt=\"\">
-          <div class=\"name\">" . $emp1['first_name'] . " " . $emp1['last_name'] . "</div>
-          
-        </div>
-        <div class=\"cmnt\">
-		<form action=\"\" method=\"POST\">
-              <input type=\"text\" name=\"comment\" placeholder=\"Write your comment here\">
-              <input type=\"submit\" class=\"addcmnt\" name=\"\" id=\"\" value=\"add comment\" add=\"add\">
-        </form>
-          <div class=\"rating not\">
-            <i class=\"fa-solid fa-star star\" onclick=\"rate(1)\" onmouseover=\"highlight(1)\" onmouseout=\"resetStars()\"></i>
-            <i class=\"fa-solid fa-star star\" onclick=\"rate(2)\" onmouseover=\"highlight(2)\" onmouseout=\"resetStars()\"></i>
-            <i class=\"fa-solid fa-star star\" onclick=\"rate(3)\" onmouseover=\"highlight(3)\" onmouseout=\"resetStars()\"></i>
-            <i class=\"fa-solid fa-star star\" onclick=\"rate(4)\" onmouseover=\"highlight(4)\" onmouseout=\"resetStars()\"></i>
-            <i class=\"fa-solid fa-star star\" onclick=\"rate(5)\" onmouseover=\"highlight(5)\" onmouseout=\"resetStars()\"></i>
-          </div>
-          <p class=\"mycmnt\"></p>
-          
-        </div>
+			<div class=\"person\">
+				<img src=\"images/" . $emp1['photo'] . "\" alt=\"\">
+				<div class=\"name\">" . $emp1['first_name'] . " " . $emp1['last_name'] . "</div>
+			</div>
+			<div class=\"cmnt\">
+				<form action=\"\" method=\"POST\">
+					<input type=\"text\" name=\"comment\" placeholder=\"Write your comment here\">
+					<input type=\"submit\" class=\"addcmnt\" name=\"\" id=\"\" value=\"add comment\" add=\"add\">
+				</form>
+				<div class=\"rating not\">
+					<i class=\"fa-solid fa-star star\" onclick=\"rate(1)\" onmouseover=\"highlight(1)\" onmouseout=\"resetStars()\"></i>
+					<i class=\"fa-solid fa-star star\" onclick=\"rate(2)\" onmouseover=\"highlight(2)\" onmouseout=\"resetStars()\"></i>
+					<i class=\"fa-solid fa-star star\" onclick=\"rate(3)\" onmouseover=\"highlight(3)\" onmouseout=\"resetStars()\"></i>
+					<i class=\"fa-solid fa-star star\" onclick=\"rate(4)\" onmouseover=\"highlight(4)\" onmouseout=\"resetStars()\"></i>
+					<i class=\"fa-solid fa-star star\" onclick=\"rate(5)\" onmouseover=\"highlight(5)\" onmouseout=\"resetStars()\"></i>
+				</div>
+				<p class=\"mycmnt\"></p>
+			
+			</div>
       </div>
         <!-- ==== -->
     </div>
@@ -407,6 +408,7 @@ echo $emp2['about'] . "</p>";}
           let star = document.querySelectorAll(".star")
           let CountOf5 = 0
           let CountOfColor=0
+		  console.log(star.length)
           for (let i = 0; i < star.length; i++) {
             if(i%5==0){
               CountOf5++
